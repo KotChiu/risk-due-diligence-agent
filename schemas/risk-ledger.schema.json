@@ -1,0 +1,361 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.risk-agent.local/v1/risk-ledger.schema.json",
+  "title": "Risk Ledger v1",
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "1.0.0"
+    },
+    "episode_id": {
+      "type": "string"
+    },
+    "ledger_version": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "risks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "risk_id": {
+            "type": "string"
+          },
+          "risk_type": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "SUSPECTED",
+              "EXPLAINED_UNVERIFIED",
+              "SUPPORTED",
+              "MITIGATED",
+              "UNRESOLVED",
+              "REJECTED"
+            ]
+          },
+          "severity": {
+            "type": "string",
+            "enum": [
+              "LOW",
+              "MEDIUM",
+              "HIGH",
+              "UNKNOWN"
+            ]
+          },
+          "evidence_strength": {
+            "type": "string",
+            "enum": [
+              "NONE",
+              "REPORTED_ONLY",
+              "INDEPENDENT_SUPPORT",
+              "CONFLICTED"
+            ]
+          },
+          "supporting_evidence_ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "contradicting_evidence_ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "uncertainties": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "reason": {
+            "type": "string"
+          },
+          "first_seen_turn": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "last_updated_turn": {
+            "type": "integer",
+            "minimum": 0
+          }
+        },
+        "required": [
+          "risk_id",
+          "risk_type",
+          "description",
+          "status",
+          "severity",
+          "evidence_strength",
+          "supporting_evidence_ids",
+          "contradicting_evidence_ids",
+          "uncertainties",
+          "reason",
+          "first_seen_turn",
+          "last_updated_turn"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "events": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "event_id": {
+            "type": "string"
+          },
+          "turn": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "delta": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "type": "string",
+                "enum": [
+                  "ADD",
+                  "UPDATE",
+                  "RESOLVE"
+                ]
+              },
+              "risk_id": {
+                "type": "string"
+              },
+              "risk_type": {
+                "type": "string"
+              },
+              "previous_status": {
+                "oneOf": [
+                  {
+                    "type": "string",
+                    "enum": [
+                      "SUSPECTED",
+                      "EXPLAINED_UNVERIFIED",
+                      "SUPPORTED",
+                      "MITIGATED",
+                      "UNRESOLVED",
+                      "REJECTED"
+                    ]
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "new_status": {
+                "type": "string",
+                "enum": [
+                  "SUSPECTED",
+                  "EXPLAINED_UNVERIFIED",
+                  "SUPPORTED",
+                  "MITIGATED",
+                  "UNRESOLVED",
+                  "REJECTED"
+                ]
+              },
+              "evidence_ids": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "reason": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "operation",
+              "risk_id",
+              "risk_type",
+              "previous_status",
+              "new_status",
+              "evidence_ids",
+              "reason"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "event_id",
+          "turn",
+          "delta"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "schema_version",
+    "episode_id",
+    "ledger_version",
+    "risks",
+    "events"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "risk": {
+      "type": "object",
+      "properties": {
+        "risk_id": {
+          "type": "string"
+        },
+        "risk_type": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "SUSPECTED",
+            "EXPLAINED_UNVERIFIED",
+            "SUPPORTED",
+            "MITIGATED",
+            "UNRESOLVED",
+            "REJECTED"
+          ]
+        },
+        "severity": {
+          "type": "string",
+          "enum": [
+            "LOW",
+            "MEDIUM",
+            "HIGH",
+            "UNKNOWN"
+          ]
+        },
+        "evidence_strength": {
+          "type": "string",
+          "enum": [
+            "NONE",
+            "REPORTED_ONLY",
+            "INDEPENDENT_SUPPORT",
+            "CONFLICTED"
+          ]
+        },
+        "supporting_evidence_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "contradicting_evidence_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "uncertainties": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "reason": {
+          "type": "string"
+        },
+        "first_seen_turn": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "last_updated_turn": {
+          "type": "integer",
+          "minimum": 0
+        }
+      },
+      "required": [
+        "risk_id",
+        "risk_type",
+        "description",
+        "status",
+        "severity",
+        "evidence_strength",
+        "supporting_evidence_ids",
+        "contradicting_evidence_ids",
+        "uncertainties",
+        "reason",
+        "first_seen_turn",
+        "last_updated_turn"
+      ],
+      "additionalProperties": false
+    },
+    "riskDelta": {
+      "type": "object",
+      "properties": {
+        "operation": {
+          "type": "string",
+          "enum": [
+            "ADD",
+            "UPDATE",
+            "RESOLVE"
+          ]
+        },
+        "risk_id": {
+          "type": "string"
+        },
+        "risk_type": {
+          "type": "string"
+        },
+        "previous_status": {
+          "oneOf": [
+            {
+              "type": "string",
+              "enum": [
+                "SUSPECTED",
+                "EXPLAINED_UNVERIFIED",
+                "SUPPORTED",
+                "MITIGATED",
+                "UNRESOLVED",
+                "REJECTED"
+              ]
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "new_status": {
+          "type": "string",
+          "enum": [
+            "SUSPECTED",
+            "EXPLAINED_UNVERIFIED",
+            "SUPPORTED",
+            "MITIGATED",
+            "UNRESOLVED",
+            "REJECTED"
+          ]
+        },
+        "evidence_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "reason": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "operation",
+        "risk_id",
+        "risk_type",
+        "previous_status",
+        "new_status",
+        "evidence_ids",
+        "reason"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

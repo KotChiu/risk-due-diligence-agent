@@ -1,0 +1,261 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.risk-agent.local/v1/episode.schema.json",
+  "title": "Multi-turn Episode v1",
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "1.0.0"
+    },
+    "episode_id": {
+      "type": "string"
+    },
+    "case_id": {
+      "type": "string"
+    },
+    "config": {
+      "type": "object",
+      "properties": {
+        "risk_model_version": {
+          "type": "string"
+        },
+        "simulator_version": {
+          "type": "string"
+        },
+        "reward_version": {
+          "type": "string"
+        },
+        "policy_version": {
+          "type": "string"
+        },
+        "max_turns": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "seed": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "mode": {
+          "type": "string",
+          "const": "EVIDENCE_GROUNDED"
+        }
+      },
+      "required": [
+        "risk_model_version",
+        "simulator_version",
+        "reward_version",
+        "policy_version",
+        "max_turns",
+        "seed",
+        "mode"
+      ],
+      "additionalProperties": false
+    },
+    "initial_observation": {
+      "type": "object",
+      "properties": {
+        "public_profile_ref": {
+          "type": "string"
+        },
+        "risk_ledger_ref": {
+          "type": "string"
+        },
+        "remaining_turns": {
+          "type": "integer",
+          "minimum": 0
+        }
+      },
+      "required": [
+        "public_profile_ref",
+        "risk_ledger_ref",
+        "remaining_turns"
+      ],
+      "additionalProperties": false
+    },
+    "steps": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "turn": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "public_observation_ref": {
+            "type": "string"
+          },
+          "agent_action": {
+            "$ref": "agent-action.schema.json"
+          },
+          "public_answer": {
+            "oneOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "speaker": {
+                    "type": "string",
+                    "const": "customer"
+                  },
+                  "text": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "speaker",
+                  "text"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "private_audit": {
+            "oneOf": [
+              {
+                "$ref": "simulator-audit.schema.json"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "public_evidence_ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "risk_delta": {
+            "type": "array",
+            "items": {
+              "$ref": "risk-ledger.schema.json#/$defs/riskDelta"
+            }
+          },
+          "reward": {
+            "oneOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "information_gain": {
+                    "type": "number"
+                  },
+                  "update_quality": {
+                    "type": "number"
+                  },
+                  "risk_discovery": {
+                    "type": "number"
+                  },
+                  "question_cost": {
+                    "type": "number"
+                  },
+                  "total": {
+                    "type": "number"
+                  },
+                  "sample_valid": {
+                    "type": "boolean"
+                  }
+                },
+                "required": [
+                  "information_gain",
+                  "update_quality",
+                  "risk_discovery",
+                  "question_cost",
+                  "total",
+                  "sample_valid"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "done": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "turn",
+          "public_observation_ref",
+          "agent_action",
+          "public_answer",
+          "private_audit",
+          "public_evidence_ids",
+          "risk_delta",
+          "reward",
+          "done"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "terminal": {
+      "type": "object",
+      "properties": {
+        "stop_reason": {
+          "type": "string",
+          "enum": [
+            "AGENT_STOP",
+            "TURN_BUDGET_EXHAUSTED",
+            "ENVIRONMENT_TRUNCATED"
+          ]
+        },
+        "turn_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "final_risk_ledger_ref": {
+          "type": "string"
+        },
+        "reward_components": {
+          "type": "object",
+          "properties": {
+            "risk_quality": {
+              "type": "number"
+            },
+            "evidence_coverage": {
+              "type": "number"
+            },
+            "update_accuracy": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "risk_quality",
+            "evidence_coverage",
+            "update_accuracy"
+          ],
+          "additionalProperties": false
+        },
+        "total_episode_reward": {
+          "type": "number"
+        },
+        "sample_valid": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "stop_reason",
+        "turn_count",
+        "final_risk_ledger_ref",
+        "reward_components",
+        "total_episode_reward",
+        "sample_valid"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "schema_version",
+    "episode_id",
+    "case_id",
+    "config",
+    "initial_observation",
+    "steps",
+    "terminal"
+  ],
+  "additionalProperties": false
+}

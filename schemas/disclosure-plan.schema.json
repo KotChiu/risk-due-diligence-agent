@@ -1,0 +1,68 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.risk-agent.local/v1/disclosure-plan.schema.json",
+  "title": "Disclosure Plan v1",
+  "type": "object",
+  "properties": {
+    "question_id": {
+      "type": "string"
+    },
+    "response_mode": {
+      "type": "string",
+      "enum": [
+        "ANSWER",
+        "PARTIAL_ANSWER",
+        "NO_RECORD",
+        "REFUSE",
+        "CORRECT_PREMISE"
+      ]
+    },
+    "primary_fact_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "supporting_fact_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "withheld_fact_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "allowed_claims": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "must_not_claim": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "policy_version": {
+      "type": "string"
+    },
+    "reason": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "question_id",
+    "response_mode",
+    "primary_fact_ids",
+    "supporting_fact_ids",
+    "withheld_fact_ids",
+    "allowed_claims",
+    "must_not_claim",
+    "policy_version"
+  ],
+  "additionalProperties": false
+}

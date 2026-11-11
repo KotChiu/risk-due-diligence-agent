@@ -1,0 +1,70 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.risk-agent.local/v1/question-intent.schema.json",
+  "title": "Question Intent v1",
+  "type": "object",
+  "properties": {
+    "question_id": {
+      "type": "string"
+    },
+    "question_text": {
+      "type": "string",
+      "minLength": 1
+    },
+    "intent": {
+      "type": "string",
+      "enum": [
+        "CAUSE_ANALYSIS",
+        "FACT_QUERY",
+        "FACT_VERIFICATION",
+        "EVIDENCE_REQUEST",
+        "GENERAL",
+        "OTHER"
+      ]
+    },
+    "domain": {
+      "type": "string"
+    },
+    "requested_attributes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "granularity": {
+      "type": "string",
+      "enum": [
+        "TOPIC",
+        "EXPLANATION",
+        "EXACT",
+        "EVIDENCE"
+      ]
+    },
+    "time_scope": {
+      "type": "string"
+    },
+    "entity_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "presuppositions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "required": [
+    "question_id",
+    "question_text",
+    "intent",
+    "domain",
+    "requested_attributes",
+    "granularity",
+    "entity_ids",
+    "presuppositions"
+  ],
+  "additionalProperties": false
+}

@@ -1,0 +1,302 @@
+{
+  "schema_version": "1.0.0",
+  "episode_id": "EP_C001",
+  "case_id": "C001",
+  "config": {
+    "risk_model_version": "risk-sft-v1",
+    "simulator_version": "sim-v1",
+    "reward_version": "reward-v1",
+    "policy_version": "disclosure-v1",
+    "max_turns": 5,
+    "seed": 42,
+    "mode": "EVIDENCE_GROUNDED"
+  },
+  "initial_observation": {
+    "public_profile_ref": "C001_PUBLIC",
+    "risk_ledger_ref": "LEDGER_EP_C001_v0",
+    "remaining_turns": 5
+  },
+  "steps": [
+    {
+      "turn": 1,
+      "public_observation_ref": "OBS_001",
+      "agent_action": {
+        "type": "ASK",
+        "question": "最近三个月经营流水下降明显，主要是什么原因？",
+        "target_risk_ids": [
+          "R01"
+        ],
+        "expected_fact_keys": [
+          "revenue_decline_reason"
+        ]
+      },
+      "public_answer": {
+        "speaker": "customer",
+        "text": "最近换了一个主要客户，这个客户结算周期比之前的客户长一些。"
+      },
+      "private_audit": {
+        "response_status": "SUPPORTED",
+        "matched_fact_ids": [
+          "F01",
+          "F02"
+        ],
+        "disclosed_fact_ids": [
+          "F01",
+          "F02"
+        ],
+        "new_fact_ids": [
+          "F01",
+          "F02"
+        ],
+        "unsupported_claims": [],
+        "grounding_pass": true,
+        "premature_disclosure": false,
+        "environment_valid": true
+      },
+      "public_evidence_ids": [
+        "E01",
+        "E02"
+      ],
+      "risk_delta": [
+        {
+          "operation": "UPDATE",
+          "risk_id": "R01",
+          "risk_type": "OPERATING_CASHFLOW_PRESSURE",
+          "previous_status": "SUSPECTED",
+          "new_status": "EXPLAINED_UNVERIFIED",
+          "evidence_ids": [
+            "E01",
+            "E02"
+          ],
+          "reason": "客户提供结算周期变化解释，尚未核实"
+        },
+        {
+          "operation": "ADD",
+          "risk_id": "R02",
+          "risk_type": "RECEIVABLE_COLLECTION_UNCERTAINTY",
+          "previous_status": null,
+          "new_status": "SUSPECTED",
+          "evidence_ids": [
+            "E02"
+          ],
+          "reason": "结算周期变化可能产生回款不确定性"
+        }
+      ],
+      "reward": {
+        "information_gain": 0.8,
+        "update_quality": 0.5,
+        "risk_discovery": 0.4,
+        "question_cost": -0.1,
+        "total": 1.6,
+        "sample_valid": true
+      },
+      "done": false
+    },
+    {
+      "turn": 2,
+      "public_observation_ref": "OBS_002",
+      "agent_action": {
+        "type": "ASK",
+        "question": "最大的客户目前大概占你们营业收入的多少？",
+        "target_risk_ids": [
+          "R02",
+          "R03"
+        ],
+        "expected_fact_keys": [
+          "largest_customer_revenue_share"
+        ]
+      },
+      "public_answer": {
+        "speaker": "customer",
+        "text": "现在最大的客户大概占六成左右。"
+      },
+      "private_audit": {
+        "response_status": "SUPPORTED",
+        "matched_fact_ids": [
+          "F03"
+        ],
+        "disclosed_fact_ids": [
+          "F03"
+        ],
+        "new_fact_ids": [
+          "F03"
+        ],
+        "unsupported_claims": [],
+        "grounding_pass": true,
+        "premature_disclosure": false,
+        "environment_valid": true
+      },
+      "public_evidence_ids": [
+        "E03"
+      ],
+      "risk_delta": [
+        {
+          "operation": "ADD",
+          "risk_id": "R03",
+          "risk_type": "CUSTOMER_CONCENTRATION",
+          "previous_status": null,
+          "new_status": "EXPLAINED_UNVERIFIED",
+          "evidence_ids": [
+            "E03"
+          ],
+          "reason": "客户自述最大客户约占营收六成"
+        }
+      ],
+      "reward": {
+        "information_gain": 0.7,
+        "update_quality": 0.7,
+        "risk_discovery": 0.8,
+        "question_cost": -0.1,
+        "total": 2.1,
+        "sample_valid": true
+      },
+      "done": false
+    },
+    {
+      "turn": 3,
+      "public_observation_ref": "OBS_003",
+      "agent_action": {
+        "type": "ASK",
+        "question": "这家主要客户目前还有多少货款没收到？",
+        "target_risk_ids": [
+          "R02",
+          "R03"
+        ],
+        "expected_fact_keys": [
+          "uncollected_receivables_cny"
+        ]
+      },
+      "public_answer": {
+        "speaker": "customer",
+        "text": "目前大概还有一百万元没有收到。"
+      },
+      "private_audit": {
+        "response_status": "SUPPORTED",
+        "matched_fact_ids": [
+          "F04"
+        ],
+        "disclosed_fact_ids": [
+          "F04"
+        ],
+        "new_fact_ids": [
+          "F04"
+        ],
+        "unsupported_claims": [],
+        "grounding_pass": true,
+        "premature_disclosure": false,
+        "environment_valid": true
+      },
+      "public_evidence_ids": [
+        "E04"
+      ],
+      "risk_delta": [
+        {
+          "operation": "UPDATE",
+          "risk_id": "R02",
+          "risk_type": "RECEIVABLE_COLLECTION_UNCERTAINTY",
+          "previous_status": "SUSPECTED",
+          "new_status": "EXPLAINED_UNVERIFIED",
+          "evidence_ids": [
+            "E04"
+          ],
+          "reason": "客户自述存在约100万元未收款"
+        }
+      ],
+      "reward": {
+        "information_gain": 0.5,
+        "update_quality": 0.6,
+        "risk_discovery": 0.4,
+        "question_cost": -0.1,
+        "total": 1.4,
+        "sample_valid": true
+      },
+      "done": false
+    },
+    {
+      "turn": 4,
+      "public_observation_ref": "OBS_004",
+      "agent_action": {
+        "type": "ASK",
+        "question": "这一百万元现在是否已经逾期？",
+        "target_risk_ids": [
+          "R02",
+          "R03"
+        ],
+        "expected_fact_keys": [
+          "receivable_due_status"
+        ]
+      },
+      "public_answer": {
+        "speaker": "customer",
+        "text": "还没到约定付款日，预计下个月能收到。"
+      },
+      "private_audit": {
+        "response_status": "SUPPORTED",
+        "matched_fact_ids": [
+          "F05"
+        ],
+        "disclosed_fact_ids": [
+          "F05"
+        ],
+        "new_fact_ids": [
+          "F05"
+        ],
+        "unsupported_claims": [],
+        "grounding_pass": true,
+        "premature_disclosure": false,
+        "environment_valid": true
+      },
+      "public_evidence_ids": [
+        "E05"
+      ],
+      "risk_delta": [
+        {
+          "operation": "UPDATE",
+          "risk_id": "R02",
+          "risk_type": "RECEIVABLE_COLLECTION_UNCERTAINTY",
+          "previous_status": "EXPLAINED_UNVERIFIED",
+          "new_status": "EXPLAINED_UNVERIFIED",
+          "evidence_ids": [
+            "E05"
+          ],
+          "reason": "客户称尚未到期；仍需核实合同及实际回款"
+        }
+      ],
+      "reward": {
+        "information_gain": 0.4,
+        "update_quality": 0.9,
+        "risk_discovery": 0.7,
+        "question_cost": -0.1,
+        "total": 1.9,
+        "sample_valid": true
+      },
+      "done": false
+    },
+    {
+      "turn": 5,
+      "public_observation_ref": "OBS_005",
+      "agent_action": {
+        "type": "STOP",
+        "reason": "已问到核心可回答信息，尚未核实的事项保留待办"
+      },
+      "public_answer": null,
+      "private_audit": null,
+      "public_evidence_ids": [],
+      "risk_delta": [],
+      "reward": null,
+      "done": true
+    }
+  ],
+  "terminal": {
+    "stop_reason": "AGENT_STOP",
+    "turn_count": 4,
+    "final_risk_ledger_ref": "risk-ledger.example.json",
+    "reward_components": {
+      "risk_quality": 0.82,
+      "evidence_coverage": 0.75,
+      "update_accuracy": 0.9
+    },
+    "total_episode_reward": 9.47,
+    "sample_valid": true
+  }
+}

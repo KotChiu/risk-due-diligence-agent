@@ -1,0 +1,26 @@
+{
+  "question_id": "Q001",
+  "response_mode": "ANSWER",
+  "primary_fact_ids": [
+    "F01"
+  ],
+  "supporting_fact_ids": [
+    "F02"
+  ],
+  "withheld_fact_ids": [
+    "F03",
+    "F04",
+    "F05"
+  ],
+  "allowed_claims": [
+    "近期更换了一个主要客户",
+    "新客户结算周期比以前长"
+  ],
+  "must_not_claim": [
+    "最大客户占营收60%",
+    "未到账100万元",
+    "预计下月回款"
+  ],
+  "policy_version": "disclosure-v1",
+  "reason": "宽泛原因问题仅披露主要解释及直接背景，不主动披露精确数值"
+}

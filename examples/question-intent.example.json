@@ -1,0 +1,13 @@
+{
+  "question_id": "Q001",
+  "question_text": "最近三个月经营流水下降明显，主要是什么原因？",
+  "intent": "CAUSE_ANALYSIS",
+  "domain": "operating_cashflow",
+  "requested_attributes": [
+    "revenue_decline_reason"
+  ],
+  "granularity": "EXPLANATION",
+  "time_scope": "recent_3m",
+  "entity_ids": [],
+  "presuppositions": []
+}

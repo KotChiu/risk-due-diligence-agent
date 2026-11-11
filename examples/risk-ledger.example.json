@@ -1,0 +1,162 @@
+{
+  "schema_version": "1.0.0",
+  "episode_id": "EP_C001",
+  "ledger_version": 6,
+  "risks": [
+    {
+      "risk_id": "R01",
+      "risk_type": "OPERATING_CASHFLOW_PRESSURE",
+      "description": "经营流水下降与潜在现金流压力",
+      "status": "EXPLAINED_UNVERIFIED",
+      "severity": "MEDIUM",
+      "evidence_strength": "REPORTED_ONLY",
+      "supporting_evidence_ids": [
+        "E00",
+        "E01",
+        "E02"
+      ],
+      "contradicting_evidence_ids": [],
+      "uncertainties": [
+        "经营变化解释是否充分",
+        "流水是否持续承压"
+      ],
+      "reason": "原始流水下降客观观察保留；客户解释尚未核实",
+      "first_seen_turn": 0,
+      "last_updated_turn": 1
+    },
+    {
+      "risk_id": "R02",
+      "risk_type": "RECEIVABLE_COLLECTION_UNCERTAINTY",
+      "description": "主要客户未收款及未来回款不确定性",
+      "status": "EXPLAINED_UNVERIFIED",
+      "severity": "MEDIUM",
+      "evidence_strength": "REPORTED_ONLY",
+      "supporting_evidence_ids": [
+        "E02",
+        "E04",
+        "E05"
+      ],
+      "contradicting_evidence_ids": [],
+      "uncertainties": [
+        "应收款账面真实性",
+        "合同到期日",
+        "下月是否真实回款"
+      ],
+      "reason": "未收款不等于已逾期；未来回款尚未发生",
+      "first_seen_turn": 1,
+      "last_updated_turn": 4
+    },
+    {
+      "risk_id": "R03",
+      "risk_type": "CUSTOMER_CONCENTRATION",
+      "description": "主要客户集中度风险",
+      "status": "EXPLAINED_UNVERIFIED",
+      "severity": "MEDIUM",
+      "evidence_strength": "REPORTED_ONLY",
+      "supporting_evidence_ids": [
+        "E03"
+      ],
+      "contradicting_evidence_ids": [],
+      "uncertainties": [
+        "比例真实性",
+        "对业务影响"
+      ],
+      "reason": "客户自述最大客户营收占比约六成",
+      "first_seen_turn": 2,
+      "last_updated_turn": 2
+    }
+  ],
+  "events": [
+    {
+      "event_id": "RE_000",
+      "turn": 0,
+      "delta": {
+        "operation": "ADD",
+        "risk_id": "R01",
+        "risk_type": "OPERATING_CASHFLOW_PRESSURE",
+        "previous_status": null,
+        "new_status": "SUSPECTED",
+        "evidence_ids": [
+          "E00"
+        ],
+        "reason": "初始流水同比下降35%"
+      }
+    },
+    {
+      "event_id": "RE_001",
+      "turn": 1,
+      "delta": {
+        "operation": "UPDATE",
+        "risk_id": "R01",
+        "risk_type": "OPERATING_CASHFLOW_PRESSURE",
+        "previous_status": "SUSPECTED",
+        "new_status": "EXPLAINED_UNVERIFIED",
+        "evidence_ids": [
+          "E01",
+          "E02"
+        ],
+        "reason": "客户提供结算周期变化解释，尚未核实"
+      }
+    },
+    {
+      "event_id": "RE_002",
+      "turn": 1,
+      "delta": {
+        "operation": "ADD",
+        "risk_id": "R02",
+        "risk_type": "RECEIVABLE_COLLECTION_UNCERTAINTY",
+        "previous_status": null,
+        "new_status": "SUSPECTED",
+        "evidence_ids": [
+          "E02"
+        ],
+        "reason": "结算周期变化可能产生回款不确定性"
+      }
+    },
+    {
+      "event_id": "RE_003",
+      "turn": 2,
+      "delta": {
+        "operation": "ADD",
+        "risk_id": "R03",
+        "risk_type": "CUSTOMER_CONCENTRATION",
+        "previous_status": null,
+        "new_status": "EXPLAINED_UNVERIFIED",
+        "evidence_ids": [
+          "E03"
+        ],
+        "reason": "客户自述最大客户约占营收六成"
+      }
+    },
+    {
+      "event_id": "RE_004",
+      "turn": 3,
+      "delta": {
+        "operation": "UPDATE",
+        "risk_id": "R02",
+        "risk_type": "RECEIVABLE_COLLECTION_UNCERTAINTY",
+        "previous_status": "SUSPECTED",
+        "new_status": "EXPLAINED_UNVERIFIED",
+        "evidence_ids": [
+          "E04"
+        ],
+        "reason": "客户自述存在约100万元未收款"
+      }
+    },
+    {
+      "event_id": "RE_005",
+      "turn": 4,
+      "delta": {
+        "operation": "UPDATE",
+        "risk_id": "R02",
+        "risk_type": "RECEIVABLE_COLLECTION_UNCERTAINTY",
+        "previous_status": "EXPLAINED_UNVERIFIED",
+        "new_status": "EXPLAINED_UNVERIFIED",
+        "evidence_ids": [
+          "E05"
+        ],
+        "reason": "客户称尚未到期；仍需核实合同及实际回款"
+      }
+    }
+  ]
+}

@@ -1,0 +1,226 @@
+{
+  "schema_version": "1.0.0",
+  "case_id": "C001",
+  "cutoff_at": "2026-03-15T09:00:00Z",
+  "split": "train",
+  "public_profile": {
+    "attributes": {
+      "revenue_change_3m": -0.35,
+      "loan_balance": 800000,
+      "currency": "CNY"
+    },
+    "observation_time": "2026-03-15T09:00:00Z"
+  },
+  "hidden_facts": [
+    {
+      "fact_id": "F01",
+      "attribute": "principal_customer_changed",
+      "value": true,
+      "value_type": "boolean",
+      "value_qualifier": "exact",
+      "statement": "近期更换了主要客户",
+      "speaker": "CUSTOMER",
+      "source": {
+        "type": "HISTORICAL_QA",
+        "source_id": "QA_001",
+        "span_id": "QA_001_A1",
+        "source_grade": "S1",
+        "recorded_at": "2026-03-15T11:00:00Z",
+        "quote": "最近换了一个主要客户，结算周期比以前长。"
+      },
+      "epistemic_status": "REPORTED",
+      "topic": "operating_change",
+      "valid_at": "2026-03-15T09:00:00Z",
+      "knowledge_available_at": "2026-03-15T09:00:00Z",
+      "visibility": "HIDDEN",
+      "eligible_for_simulator": true,
+      "disclosure": {
+        "granularity": "EXPLANATION",
+        "mode": "ON_RELEVANT_QUESTION"
+      },
+      "related_fact_ids": [
+        "F02"
+      ],
+      "conflicts_with": []
+    },
+    {
+      "fact_id": "F02",
+      "attribute": "principal_customer_payment_term_longer",
+      "value": true,
+      "value_type": "boolean",
+      "value_qualifier": "exact",
+      "statement": "新客户结算周期比原有客户长",
+      "speaker": "CUSTOMER",
+      "source": {
+        "type": "HISTORICAL_QA",
+        "source_id": "QA_001",
+        "span_id": "QA_001_A1",
+        "source_grade": "S1",
+        "recorded_at": "2026-03-15T11:00:00Z",
+        "quote": "最近换了一个主要客户，结算周期比以前长。"
+      },
+      "epistemic_status": "REPORTED",
+      "topic": "operating_cashflow",
+      "valid_at": "2026-03-15T09:00:00Z",
+      "knowledge_available_at": "2026-03-15T09:00:00Z",
+      "visibility": "HIDDEN",
+      "eligible_for_simulator": true,
+      "disclosure": {
+        "granularity": "EXPLANATION",
+        "mode": "ON_RELEVANT_QUESTION"
+      },
+      "related_fact_ids": [
+        "F01"
+      ],
+      "conflicts_with": []
+    },
+    {
+      "fact_id": "F03",
+      "attribute": "largest_customer_revenue_share",
+      "value": 0.6,
+      "value_type": "ratio",
+      "value_qualifier": "approximate",
+      "statement": "最大客户大概占营收六成",
+      "speaker": "CUSTOMER",
+      "source": {
+        "type": "HISTORICAL_QA",
+        "source_id": "QA_002",
+        "span_id": "QA_002_A1",
+        "source_grade": "S1",
+        "recorded_at": "2026-03-15T11:00:00Z",
+        "quote": "现在最大的一个客户大概占营收六成。"
+      },
+      "epistemic_status": "REPORTED",
+      "topic": "customer_concentration",
+      "valid_at": "2026-03-15T09:00:00Z",
+      "knowledge_available_at": "2026-03-15T09:00:00Z",
+      "visibility": "HIDDEN",
+      "eligible_for_simulator": true,
+      "disclosure": {
+        "granularity": "EXACT",
+        "mode": "DIRECT_QUESTION"
+      },
+      "related_fact_ids": [],
+      "conflicts_with": []
+    },
+    {
+      "fact_id": "F04",
+      "attribute": "uncollected_receivables_cny",
+      "value": 1000000,
+      "value_type": "money",
+      "value_qualifier": "approximate",
+      "statement": "该主要客户约有100万元尚未到账",
+      "speaker": "CUSTOMER",
+      "source": {
+        "type": "SUMMARY",
+        "source_id": "SUM_001",
+        "span_id": "SUM_001_S1",
+        "source_grade": "S2",
+        "recorded_at": "2026-03-15T12:00:00Z",
+        "quote": "客户称，主要客户目前约有100万元货款未到账。"
+      },
+      "epistemic_status": "REPORTED",
+      "topic": "accounts_receivable",
+      "valid_at": "2026-03-15T09:00:00Z",
+      "knowledge_available_at": "2026-03-15T09:00:00Z",
+      "visibility": "HIDDEN",
+      "eligible_for_simulator": true,
+      "disclosure": {
+        "granularity": "EXACT",
+        "mode": "DIRECT_QUESTION"
+      },
+      "related_fact_ids": [],
+      "conflicts_with": []
+    },
+    {
+      "fact_id": "F05",
+      "attribute": "receivable_due_status",
+      "value": "NOT_YET_DUE",
+      "value_type": "string",
+      "value_qualifier": "exact",
+      "statement": "客户称款项尚未到约定付款日，预计下个月回款",
+      "speaker": "CUSTOMER",
+      "source": {
+        "type": "HISTORICAL_QA",
+        "source_id": "QA_003",
+        "span_id": "QA_003_A1",
+        "source_grade": "S1",
+        "recorded_at": "2026-03-15T11:00:00Z",
+        "quote": "还没到约定付款日，预计下个月能收到。"
+      },
+      "epistemic_status": "REPORTED",
+      "topic": "accounts_receivable",
+      "valid_at": "2026-03-15T09:00:00Z",
+      "knowledge_available_at": "2026-03-15T09:00:00Z",
+      "visibility": "HIDDEN",
+      "eligible_for_simulator": true,
+      "disclosure": {
+        "granularity": "EXPLANATION",
+        "mode": "DIRECT_QUESTION"
+      },
+      "related_fact_ids": [],
+      "conflicts_with": []
+    }
+  ],
+  "source_evidence": [
+    {
+      "source_id": "QA_001",
+      "source_type": "HISTORICAL_QA",
+      "recorded_at": "2026-03-15T11:00:00Z",
+      "text_redacted": "问：最近流水下降的原因？答：最近换了一个主要客户，结算周期比以前长。"
+    },
+    {
+      "source_id": "QA_002",
+      "source_type": "HISTORICAL_QA",
+      "recorded_at": "2026-03-15T11:00:00Z",
+      "text_redacted": "问：主要客户收入占比？答：现在最大的一个客户大概占营收六成。"
+    },
+    {
+      "source_id": "QA_003",
+      "source_type": "HISTORICAL_QA",
+      "recorded_at": "2026-03-15T11:00:00Z",
+      "text_redacted": "问：该应收款是否逾期？答：还没到约定付款日，预计下个月能收到。"
+    },
+    {
+      "source_id": "SUM_001",
+      "source_type": "SUMMARY",
+      "recorded_at": "2026-03-15T12:00:00Z",
+      "text_redacted": "客户称，主要客户目前约有100万元货款未到账。"
+    }
+  ],
+  "evaluation_labels": [
+    {
+      "risk_type": "OPERATING_CASHFLOW_PRESSURE",
+      "label": "PRESENT",
+      "label_quality": "EXPERT_REVIEWED",
+      "supporting_source_ids": [
+        "QA_001"
+      ],
+      "notes": "仅有经营流水下降及客户解释；风险强度和因果需要继续核验"
+    },
+    {
+      "risk_type": "CUSTOMER_CONCENTRATION",
+      "label": "PRESENT",
+      "label_quality": "EXPERT_REVIEWED",
+      "supporting_source_ids": [
+        "QA_002"
+      ],
+      "notes": "客户声称大客户占比较高，非独立核验比例"
+    },
+    {
+      "risk_type": "RECEIVABLE_OVERDUE",
+      "label": "UNCERTAIN",
+      "label_quality": "WEAK",
+      "supporting_source_ids": [
+        "QA_003"
+      ],
+      "notes": "客户称尚未到期；不得把未收款直接定性为逾期"
+    }
+  ],
+  "source_quality_report": {
+    "tier": "GOLD",
+    "attribution_reviewed": true,
+    "answerable_fact_count": 5,
+    "notes": "虚构示例；S1 QA + S2 明确客户归属摘要。仅用于协议演示"
+  }
+}

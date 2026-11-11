@@ -1,0 +1,203 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.risk-agent.local/v1/fact.schema.json",
+  "title": "Evidence fact v1",
+  "type": "object",
+  "properties": {
+    "fact_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "attribute": {
+      "type": "string",
+      "minLength": 1
+    },
+    "value": {
+      "type": [
+        "string",
+        "number",
+        "integer",
+        "boolean",
+        "null"
+      ]
+    },
+    "value_type": {
+      "type": "string",
+      "enum": [
+        "string",
+        "ratio",
+        "money",
+        "integer",
+        "number",
+        "boolean",
+        "date",
+        "unknown"
+      ]
+    },
+    "value_qualifier": {
+      "type": "string",
+      "enum": [
+        "exact",
+        "approximate",
+        "range",
+        "unknown"
+      ]
+    },
+    "statement": {
+      "type": "string",
+      "minLength": 1
+    },
+    "speaker": {
+      "type": "string",
+      "enum": [
+        "CUSTOMER",
+        "INVESTIGATOR",
+        "SYSTEM",
+        "UNKNOWN"
+      ]
+    },
+    "source": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "HISTORICAL_QA",
+            "SUMMARY",
+            "VERIFICATION_RECORD",
+            "STRUCTURED_CONCLUSION",
+            "SYNTHETIC"
+          ]
+        },
+        "source_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "span_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source_grade": {
+          "type": "string",
+          "enum": [
+            "S1",
+            "S2",
+            "S3",
+            "S4",
+            "S5"
+          ]
+        },
+        "recorded_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "quote": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "type",
+        "source_id",
+        "span_id",
+        "source_grade",
+        "recorded_at",
+        "quote"
+      ],
+      "additionalProperties": false
+    },
+    "epistemic_status": {
+      "type": "string",
+      "enum": [
+        "REPORTED",
+        "VERIFIED",
+        "CONTRADICTED",
+        "UNDETERMINED"
+      ]
+    },
+    "topic": {
+      "type": "string",
+      "minLength": 1
+    },
+    "entity_id": {
+      "type": "string"
+    },
+    "valid_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "knowledge_available_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "visibility": {
+      "type": "string",
+      "enum": [
+        "INITIAL",
+        "HIDDEN",
+        "EVALUATOR"
+      ]
+    },
+    "eligible_for_simulator": {
+      "type": "boolean"
+    },
+    "disclosure": {
+      "type": "object",
+      "properties": {
+        "granularity": {
+          "type": "string",
+          "enum": [
+            "TOPIC",
+            "EXPLANATION",
+            "EXACT",
+            "EVIDENCE"
+          ]
+        },
+        "mode": {
+          "type": "string",
+          "enum": [
+            "ON_RELEVANT_QUESTION",
+            "DIRECT_QUESTION",
+            "EVIDENCE_TOOL_ONLY",
+            "NEVER"
+          ]
+        }
+      },
+      "required": [
+        "granularity",
+        "mode"
+      ],
+      "additionalProperties": false
+    },
+    "related_fact_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "conflicts_with": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "required": [
+    "fact_id",
+    "attribute",
+    "value",
+    "value_type",
+    "value_qualifier",
+    "statement",
+    "speaker",
+    "source",
+    "epistemic_status",
+    "topic",
+    "valid_at",
+    "knowledge_available_at",
+    "visibility",
+    "eligible_for_simulator",
+    "disclosure"
+  ],
+  "additionalProperties": false
+}

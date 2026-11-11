@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.risk-agent.local/v1/simulator-audit.schema.json",
+  "title": "Simulator Audit v1 (private)",
+  "type": "object",
+  "properties": {
+    "response_status": {
+      "type": "string",
+      "enum": [
+        "SUPPORTED",
+        "PARTIALLY_SUPPORTED",
+        "NO_RECORD",
+        "REFUSED",
+        "GROUNDING_FAILED",
+        "SIMULATOR_ERROR"
+      ]
+    },
+    "matched_fact_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "disclosed_fact_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "new_fact_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "unsupported_claims": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "grounding_pass": {
+      "type": "boolean"
+    },
+    "premature_disclosure": {
+      "type": "boolean"
+    },
+    "environment_valid": {
+      "type": "boolean"
+    },
+    "private_note": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "response_status",
+    "matched_fact_ids",
+    "disclosed_fact_ids",
+    "new_fact_ids",
+    "unsupported_claims",
+    "grounding_pass",
+    "premature_disclosure",
+    "environment_valid"
+  ],
+  "additionalProperties": false
+}

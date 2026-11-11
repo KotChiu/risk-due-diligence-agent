@@ -1,0 +1,182 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.risk-agent.local/v1/case-package.schema.json",
+  "title": "Case Package v1",
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "1.0.0"
+    },
+    "case_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "cutoff_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "split": {
+      "type": "string",
+      "enum": [
+        "train",
+        "val",
+        "test"
+      ]
+    },
+    "public_profile": {
+      "type": "object",
+      "properties": {
+        "attributes": {
+          "type": "object",
+          "additionalProperties": {
+            "type": [
+              "string",
+              "integer",
+              "number",
+              "boolean",
+              "null"
+            ]
+          }
+        },
+        "observation_time": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "attributes",
+        "observation_time"
+      ],
+      "additionalProperties": false
+    },
+    "hidden_facts": {
+      "type": "array",
+      "items": {
+        "$ref": "fact.schema.json"
+      }
+    },
+    "source_evidence": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "source_id": {
+            "type": "string"
+          },
+          "source_type": {
+            "type": "string",
+            "enum": [
+              "HISTORICAL_QA",
+              "SUMMARY",
+              "VERIFICATION_RECORD",
+              "STRUCTURED_CONCLUSION",
+              "SYNTHETIC"
+            ]
+          },
+          "recorded_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "text_redacted": {
+            "type": "string"
+          },
+          "content_hash": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "source_id",
+          "source_type",
+          "recorded_at",
+          "text_redacted"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "evaluation_labels": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "risk_type": {
+            "type": "string"
+          },
+          "label": {
+            "type": "string",
+            "enum": [
+              "PRESENT",
+              "ABSENT",
+              "UNCERTAIN"
+            ]
+          },
+          "label_quality": {
+            "type": "string",
+            "enum": [
+              "VERIFIED",
+              "EXPERT_REVIEWED",
+              "WEAK"
+            ]
+          },
+          "supporting_source_ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "notes": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "risk_type",
+          "label",
+          "label_quality",
+          "supporting_source_ids"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "source_quality_report": {
+      "type": "object",
+      "properties": {
+        "tier": {
+          "type": "string",
+          "enum": [
+            "GOLD",
+            "SILVER",
+            "BRONZE"
+          ]
+        },
+        "attribution_reviewed": {
+          "type": "boolean"
+        },
+        "notes": {
+          "type": "string"
+        },
+        "answerable_fact_count": {
+          "type": "integer",
+          "minimum": 0
+        }
+      },
+      "required": [
+        "tier",
+        "attribution_reviewed",
+        "answerable_fact_count"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "schema_version",
+    "case_id",
+    "cutoff_at",
+    "split",
+    "public_profile",
+    "hidden_facts",
+    "source_evidence",
+    "evaluation_labels",
+    "source_quality_report"
+  ],
+  "additionalProperties": false
+}

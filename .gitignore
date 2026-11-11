@@ -1,0 +1,14 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+.env
+.env.*
+*.log
+.DS_Store
+# Real client records / large data are intentionally out of scope
+real_data/
+private_data/
+secrets/
+checkpoints/
+outputs/
