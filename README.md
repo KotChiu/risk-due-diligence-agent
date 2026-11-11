@@ -75,7 +75,7 @@ python scripts/validate_examples.py
 | [07 训练评估](docs/07-training-and-evaluation.md) | 数据划分、SFT、Rollout、RL、对照实验 |
 | [08 安全合规](docs/08-security-and-governance.md) | 客户隐私、审计与授信公平性 |
 | [09 路线图](docs/09-implementation-roadmap.md) | MVP 阶段交付物与验收标准 |
-| [10 GitHub 发布](docs/10-publish-to-github.md) | 如何创建 Private 仓库并推送 |
+| [10 GitHub 协作](docs/10-publish-to-github.md) | 已发布仓库的克隆、验证与协作方式 |
 
 ## 端到端示例
 
@@ -91,4 +91,4 @@ python scripts/validate_examples.py
 
 ## 许可证与仓库可见性
 
-未预设开源许可证；如准备公开发布，请先审核客户数据、业务规则、内部字段和知识产权。建议新仓库初始设为 **Private**。
+未预设开源许可证；**当前仓库为 Public**。仅允许提交虚构示例与可公开的设计资料；不得提交真实客户资料、未公开业务规则或内部凭据。接入生产数据前须确认组织授权、数据合规与仓库可见性。
