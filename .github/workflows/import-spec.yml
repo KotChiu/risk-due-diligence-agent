@@ -3,7 +3,7 @@ name: Import agent design package
 on:
   push:
     paths:
-      - 'bootstrap/risk-spec.tar.xz.b64'
+      - 'bootstrap/READY'
 
 permissions:
   contents: write
@@ -17,8 +17,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          test -s bootstrap/risk-spec.tar.xz.b64
-          base64 --decode bootstrap/risk-spec.tar.xz.b64 > /tmp/spec.tar.xz
+          cat bootstrap/part-{0,1,2,3}.b64 | base64 --decode > /tmp/spec.tar.xz
           echo "c534f29363d1f8c6b1f284542d74e161a139f090b7b137934f053d992bd272c0  /tmp/spec.tar.xz" | sha256sum -c -
           mkdir -p /tmp/imported
           tar -xJf /tmp/spec.tar.xz -C /tmp/imported
